@@ -7,11 +7,22 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_03():
-    """
-    Retorne la suma de la columna 2 por cada letra de la primera columna como
-    una lista de tuplas (letra, suma) ordendas alfabeticamente.
+  ruta_archivo = "files/input/data.csv"
 
-    Rta/
-    [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
+  conteo_por_letra = {}
 
-    """
+  with open(ruta_archivo, "r") as archivo:
+    for linea in archivo:
+        columnas = linea.split("\t")
+        letra = columnas[0]
+        
+        # Contar la columna 2 por letra
+        if letra in conteo_por_letra:
+            conteo_por_letra[letra] += int(columnas[1])
+        else:
+            conteo_por_letra[letra] = int(columnas[1])
+
+  # Convertir a lista de tuplas y ordenar alfabéticamente
+  lista = list(conteo_por_letra.items()) #.items() = (clave, valor).
+  lista.sort()
+  return lista

@@ -7,22 +7,23 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_04():
-    """
-    La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
-    cantidad de registros por cada mes, tal como se muestra a continuación.
+  ruta_archivo = "files/input/data.csv"
 
-    Rta/
-    [('01', 3),
-     ('02', 4),
-     ('03', 2),
-     ('04', 4),
-     ('05', 3),
-     ('06', 3),
-     ('07', 5),
-     ('08', 6),
-     ('09', 3),
-     ('10', 2),
-     ('11', 2),
-     ('12', 3)]
+  conteo_por_mes = {}
 
-    """
+  with open(ruta_archivo, "r") as archivo:
+    for linea in archivo:
+        columnas = linea.split("\t")
+        fecha = columnas[2].split("-")
+        mes=fecha[1]
+        
+        # Contar los meses
+        if mes in conteo_por_mes:
+            conteo_por_mes[mes] += 1
+        else:
+            conteo_por_mes[mes] = 1
+
+  # Convertir a lista de tuplas y ordenar alfabéticamente
+  lista = list(conteo_por_mes.items()) #.items() = (clave, valor).
+  lista.sort()
+  return lista

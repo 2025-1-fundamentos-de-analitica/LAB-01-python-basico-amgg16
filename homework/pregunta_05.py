@@ -7,11 +7,29 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_05():
-    """
-    Retorne una lista de tuplas con el valor maximo y minimo de la columna 2
-    por cada letra de la columa 1.
+  ruta_archivo = "files/input/data.csv"
 
-    Rta/
-    [('A', 9, 2), ('B', 9, 1), ('C', 9, 0), ('D', 8, 3), ('E', 9, 1)]
+  valores_por_letra = {}
 
-    """
+  with open(ruta_archivo, "r") as archivo:
+    for linea in archivo:
+        columnas = linea.split("\t")
+        letra = columnas[0]
+        valor = int(columnas[1])
+
+        if letra in valores_por_letra:
+            valores_por_letra[letra].append(valor)
+        else:
+            valores_por_letra[letra] = [valor]
+
+  #lista de tuplas (letra, max, min)
+  resultado = []
+  for letra in valores_por_letra:
+    max_val = max(valores_por_letra[letra])
+    min_val = min(valores_por_letra[letra])
+    resultado.append((letra, max_val, min_val))
+
+  # Ordenar alfabéticamente por letra
+  resultado.sort()
+
+  return resultado

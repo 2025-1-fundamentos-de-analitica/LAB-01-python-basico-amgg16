@@ -7,12 +7,20 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_11():
-    """
-    Retorne un diccionario que contengan la suma de la columna 2 para cada
-    letra de la columna 4, ordenadas alfabeticamente.
+  ruta_archivo = "files/input/data.csv"
 
-    Rta/
-    {'a': 122, 'b': 49, 'c': 91, 'd': 73, 'e': 86, 'f': 134, 'g': 35}
+  valores_por_clave = {}
 
+  with open(ruta_archivo, "r") as archivo:
+    for linea in archivo:
+        columnas = linea.split("\t")
 
-    """
+        letras = columnas[3].split(",")  #columna 4
+
+        for letra in letras: #cada diccionario en esa columna
+            if letra in valores_por_clave:
+                valores_por_clave[letra]+=int(columnas[1])
+            else:
+                valores_por_clave[letra] = int(columnas[1])
+
+  return valores_por_clave

@@ -7,11 +7,24 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_12():
-    """
-    Genere un diccionario que contengan como clave la columna 1 y como valor
-    la suma de los valores de la columna 5 sobre todo el archivo.
+  ruta_archivo = "files/input/data.csv"
 
-    Rta/
-    {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
+  conteo_por_registro = {}
 
-    """
+  with open(ruta_archivo, "r") as archivo:
+    for linea in archivo:
+        columnas = linea.split("\t")
+        clave=columnas[0]
+        conteo = columnas[4].split(",")  #columna 5
+
+        suma=0
+        for num in conteo: #cada diccionario en columna 5
+            valor = num.split(":") 
+            suma += int(valor[1])
+
+        if clave in conteo_por_registro:
+            conteo_por_registro[clave]+=suma
+        else:
+            conteo_por_registro[clave] = suma
+        
+  return conteo_por_registro

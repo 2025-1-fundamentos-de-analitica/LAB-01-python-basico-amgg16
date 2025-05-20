@@ -7,21 +7,23 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_07():
-    """
-    Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
-    contiene un valor posible de la columna 2 y una lista con todas las letras
-    asociadas (columna 1) a dicho valor de la columna 2.
+  ruta_archivo = "files/input/data.csv"
 
-    Rta/
-    [(0, ['C']),
-     (1, ['E', 'B', 'E']),
-     (2, ['A', 'E']),
-     (3, ['A', 'B', 'D', 'E', 'E', 'D']),
-     (4, ['E', 'B']),
-     (5, ['B', 'C', 'D', 'D', 'E', 'E', 'E']),
-     (6, ['C', 'E', 'A', 'B']),
-     (7, ['A', 'C', 'E', 'D']),
-     (8, ['E', 'D', 'E', 'A', 'B']),
-     (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
+  asociaciones = {}
 
-    """
+  with open(ruta_archivo, "r") as archivo:
+    for linea in archivo:
+        columnas = linea.split("\t")
+
+        letra = columnas[0]
+        valor = int(columnas[1])  
+
+        if valor in asociaciones:
+            asociaciones[valor].append(letra)
+        else:
+            asociaciones[valor] = [letra]
+
+  # Convertir a lista de tuplas y ordenar por valor de columna 2
+  lista = list(asociaciones.items()) #.items() = (clave, valor).
+  lista.sort()
+  return lista
